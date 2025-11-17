@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # VNStock API Service
+  vnstock-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vnstock-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - HOME=/app
+      - VNSTOCK_DATA_DIR=/app/.vnstock
+      - IPYTHONDIR=/app/.ipython
+    networks:
+      - vnstock-network
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s
+    volumes:
+      # Mount logs directory nếu cần
+      - ./logs:/app/logs
+    labels:
+      - "com.vnstock.description=VNStock API Service"
+
+  # n8n Service
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER:-admin}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD:-admin123}
+      - N8N_HOST=${N8N_HOST:-localhost}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678/}
+      - GENERIC_TIMEZONE=${TIMEZONE:-Asia/Ho_Chi_Minh}
+    networks:
+      - vnstock-network
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n/workflows:/home/node/.n8n/workflows
+    depends_on:
+      - vnstock-api
+    labels:
+      - "com.vnstock.description=n8n Workflow Automation"
+
+networks:
+  vnstock-network:
+    driver: bridge
+    name: vnstock-network
+
+volumes:
+  n8n_data:
+    name: n8n_data
+    driver: local

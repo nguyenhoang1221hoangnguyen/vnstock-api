@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./docker-start.sh:*)",
+      "Bash(npm start)",
+      "Bash(docker-compose restart:*)",
+      "Bash(curl:*)",
+      "Bash(python3:*)",
+      "Bash(docker-compose logs:*)",
+      "Bash(./docker-rebuild.sh)",
+      "Bash(docker-compose ps:*)",
+      "Bash(npm install:*)",
+      "Bash(npm uninstall:*)",
+      "WebSearch",
+      "WebFetch(domain:docs.vnstock.site)",
+      "Bash(docker-compose down:*)",
+      "Bash(docker-compose build:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(pkill:*)",
+      "Bash(for interval in 1m 15m 30m 1h)",
+      "Bash(do echo \"Testing interval: $interval\")",
+      "Bash(done)",
+      "Bash(for interval in 1m 15m 30m 1h 3h 6h)",
+      "Bash(do echo \"=== Testing $interval ===\")",
+      "Bash(docker exec:*)",
+      "Bash(tree:*)",
+      "WebFetch(domain:pypi.org)",
+      "WebFetch(domain:github.com)",
+      "Bash(docker restart:*)",
+      "Bash(docker logs:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

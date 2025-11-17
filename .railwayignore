@@ -1,0 +1,47 @@
+# Railway ignore file
+# Similar to .gitignore but for Railway deployments
+
+# Local development
+.env
+*.local
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# Logs
+*.log
+logs/
+*.sqlite
+
+# n8n data (will be handled by volumes)
+n8n/
+
+# Frontend (if not needed)
+frontend/
+
+# Documentation
+*.md
+!README.md
+
+# Test files
+tests/
+*.test.py
