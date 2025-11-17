@@ -35,7 +35,10 @@
       "Bash(git remote add:*)",
       "Bash(git push:*)",
       "Bash(brew install:*)",
-      "Bash(railway:*)"
+      "Bash(railway:*)",
+      "Bash(bash:*)",
+      "Bash(export PATH=\"$HOME/google-cloud-sdk/bin:$PATH\")",
+      "Bash(gcloud --version:*)"
     ],
     "deny": [],
     "ask": []
